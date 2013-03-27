@@ -9,7 +9,6 @@ import unclelu.lib.Init;
 import unclelu.lib.SystemInfo;
 import unclelu.lib.command.Adb;
 
-
 /**
  *
  * @author ZYJ
@@ -153,6 +152,11 @@ public class Main extends javax.swing.JFrame {
         jButton1.setText("ROM优化");
 
         jButton2.setText("文件签名");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("反编译");
 
@@ -210,16 +214,23 @@ public class Main extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //
     }//GEN-LAST:event_formWindowActivated
-
+    
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         //
     }//GEN-LAST:event_btnSearchActionPerformed
-
+    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         lblSystemArch.setText(SystemInfo.getSystemArch());
         lblSystemName.setText(SystemInfo.getSystemName());
         lblSystemVersion.setText(SystemInfo.getSystemVersion());
     }//GEN-LAST:event_formWindowOpened
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Signapk w = new Signapk(this, true);
+        w.setLocationRelativeTo(this);
+        w.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
