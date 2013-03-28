@@ -35,8 +35,12 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnOpenFile" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnDoSign" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -55,9 +59,11 @@
                   <Component id="btnOpenFile" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDoSign" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -84,10 +90,18 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x7b7e;&#x540d;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDoSignActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x53ef;&#x62d6;&#x653e;&#x6587;&#x4ef6;&#x81f3;&#x6587;&#x672c;&#x6846;&#xff0c;&#x4ec5;&#x652f;&#x6301;APK&#x548c;ZIP&#x683c;&#x5f0f;&#x6587;&#x4ef6;"/>
+        <Property name="text" type="java.lang.String" value="&#x53ef;&#x62d6;&#x653e;&#x6587;&#x4ef6;&#x81f3;&#x5f53;&#x524d;&#x7a97;&#x53e3;&#xff0c;&#x4ec5;&#x652f;&#x6301;APK&#x548c;ZIP&#x683c;&#x5f0f;&#x6587;&#x4ef6;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x7b7e;&#x540d;&#x540e;&#x6587;&#x4ef6;&#x4fdd;&#x5b58;&#x5728;sign&#x76ee;&#x5f55;&#x4e0b;"/>
       </Properties>
     </Component>
   </SubComponents>

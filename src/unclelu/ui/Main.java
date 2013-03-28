@@ -20,16 +20,6 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-
-//        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-//        int h = d.getSize().height;
-//        int w = d.getSize().width;
-//
-//        double nh = (double) h * 0.75;
-//        double nw = (double) w * 0.75;
-//        Dimension nd = new Dimension((int) nw, (int) nh);
-//        setSize(nd);
-        //setPreferredSize(nd);
         setLocationRelativeTo(null);
     }
 

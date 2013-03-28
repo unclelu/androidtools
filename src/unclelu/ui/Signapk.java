@@ -4,10 +4,17 @@
  */
 package unclelu.ui;
 
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
 import java.io.File;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
+import unclelu.lib.command.Sign;
 
 /**
  *
@@ -21,6 +28,34 @@ public class Signapk extends javax.swing.JDialog {
     public Signapk(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        myInit();
+    }
+
+    private void myInit() {
+        new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, new DropTargetAdapter() {
+            @Override
+            public void drop(DropTargetDropEvent dtde) {
+                if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+                    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+                    try {
+                        List<File> list =
+                                (List<File>) dtde.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                        for (File f : list) {
+                            if (f.getName().toLowerCase().endsWith(".apk") || f.getName().toLowerCase().endsWith(".zip")) {
+                                txtFilePath.setText(f.getAbsolutePath());
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "不支持的文件格式", "警告", JOptionPane.WARNING_MESSAGE);
+                                return;
+                            }
+                        }
+                        dtde.dropComplete(true);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    dtde.rejectDrop();
+                }
+            }
+        });
     }
 
     /**
@@ -37,6 +72,7 @@ public class Signapk extends javax.swing.JDialog {
         btnOpenFile = new javax.swing.JButton();
         btnDoSign = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("文件签名");
@@ -52,8 +88,15 @@ public class Signapk extends javax.swing.JDialog {
         });
 
         btnDoSign.setText("签名");
+        btnDoSign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoSignActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("可拖放文件至文本框，仅支持APK和ZIP格式文件");
+        jLabel2.setText("可拖放文件至当前窗口，仅支持APK和ZIP格式文件");
+
+        jLabel4.setText("签名后文件保存在sign目录下");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,8 +111,11 @@ public class Signapk extends javax.swing.JDialog {
                         .addComponent(txtFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDoSign)))
                 .addContainerGap())
@@ -83,9 +129,11 @@ public class Signapk extends javax.swing.JDialog {
                     .addComponent(txtFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOpenFile))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDoSign)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel4)
+                    .addComponent(btnDoSign))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -106,7 +154,7 @@ public class Signapk extends javax.swing.JDialog {
                     return true;
                 }
             }
-            
+
             @Override
             public String getDescription() {
                 return "apk或zip文件";
@@ -117,8 +165,18 @@ public class Signapk extends javax.swing.JDialog {
             return;
         }
         txtFilePath.setText(jfc.getSelectedFile().getAbsolutePath());
-        
+
     }//GEN-LAST:event_btnOpenFileActionPerformed
+
+    private void btnDoSignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoSignActionPerformed
+        if (txtFilePath.getText() == null) {
+            return;
+        }
+        Sign s = new Sign();
+        s.setOldFile(txtFilePath.getText());
+        s.setAutoNewFile();
+        s.signFile();
+    }//GEN-LAST:event_btnDoSignActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,6 +224,7 @@ public class Signapk extends javax.swing.JDialog {
     private javax.swing.JButton btnOpenFile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtFilePath;
     // End of variables declaration//GEN-END:variables
 }
