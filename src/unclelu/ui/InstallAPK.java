@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import unclelu.lib.command.Adb;
 import unclelu.lib.path.AdtPath;
@@ -126,6 +127,7 @@ public class InstallAPK extends javax.swing.JDialog {
 
     private void btnInstallAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstallAllActionPerformed
         if (listApk.getModel().getSize() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "no file");
             return;
         }
         for (int i = 0; i < listApk.getModel().getSize(); i++) {
