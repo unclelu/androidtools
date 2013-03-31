@@ -69,7 +69,7 @@ public class Apktool extends ExecCommand {
         String[] cmd = {"java", "-jar", AdtPath.getApktoolFile(), "d", this.apkFile, getApkCodeDir()};
         setCommand(cmd);
         exec();
-        if (getResultErr().isEmpty()) {
+        if (!getResultErr().isEmpty()) {
             JOptionPane.showMessageDialog(null, "反编译文件完毕");
         } else {
             JOptionPane.showMessageDialog(null, "反编译失败");
@@ -81,7 +81,7 @@ public class Apktool extends ExecCommand {
         String[] cmd = {"java", "-jar", AdtPath.getApktoolFile(), "b", getApkCodeDir()};
         setCommand(cmd);
         exec();
-        if (getResultErr().isEmpty()) {
+        if (!getResultErr().isEmpty()) {
             JOptionPane.showMessageDialog(null, "回编译成功");
             if (this.isSign) {
                 Sign s = new Sign();
@@ -94,11 +94,11 @@ public class Apktool extends ExecCommand {
         }
     }
 
-    public void importFramework(String file) {
-        String[] cmd = {"java", "-jar", AdtPath.getApktoolFile(), "f", file};
+    public void importFramework() {
+        String[] cmd = {"java", "-jar", AdtPath.getApktoolFile(), "if", this.apkFile};
         setCommand(cmd);
         exec();
-        if (getResultErr().isEmpty()) {
+        if (!getResultErr().isEmpty()) {
             JOptionPane.showMessageDialog(null, "框架导入成功");
         } else {
             JOptionPane.showMessageDialog(null, "框架导入失败");

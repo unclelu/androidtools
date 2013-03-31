@@ -45,7 +45,7 @@ public class ExecCommand {
             String line = null;
             while ((line = brEr.readLine()) != null) {
                 getResultErr().add(line);
-                System.out.println(line);
+                System.out.println("error:" + line);
             }
             while ((line = br.readLine()) != null) {
                 getResult().add(line);

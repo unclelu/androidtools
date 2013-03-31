@@ -4,6 +4,10 @@
  */
 package unclelu.ui;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+
 /**
  *
  * @author unclelu
@@ -40,12 +44,22 @@ public class Apktool extends javax.swing.JDialog {
         jLabel1.setText("apk文件:");
 
         btnOpenFile.setText("...");
+        btnOpenFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenFileActionPerformed(evt);
+            }
+        });
 
         btnDeApk.setText("反编译");
 
         btnComApk.setText("回编译");
 
         btnImportFramework.setText("框架导入");
+        btnImportFramework.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportFrameworkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,6 +101,37 @@ public class Apktool extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnImportFrameworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportFrameworkActionPerformed
+        ImportFramework w = new ImportFramework(null, true);
+        w.setLocationRelativeTo(this);
+        w.setVisible(true);
+    }//GEN-LAST:event_btnImportFrameworkActionPerformed
+    
+    private void btnOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenFileActionPerformed
+        JFileChooser jfc = new JFileChooser();
+        jfc.setDialogTitle("请选择需要处理的apk");
+        jfc.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.getName().toLowerCase().endsWith(".apk") || f.isDirectory()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            
+            @Override
+            public String getDescription() {
+                return "apk文件";
+            }
+        });
+        jfc.showOpenDialog(null);
+        if (jfc.getSelectedFile() == null) {
+            return;
+        }
+        txtApkFile.setText(jfc.getSelectedFile().getAbsolutePath());
+    }//GEN-LAST:event_btnOpenFileActionPerformed
 
     /**
      * @param args the command line arguments
