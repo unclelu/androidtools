@@ -25,11 +25,13 @@ public class Adb extends ExecCommand implements Runnable {
     public void install(String apkFile) {
         String[] cmd = {AdtPath.getAdbFile(), "install", apkFile};
         setCommand(cmd);
+        exec();
     }
 
     public void unInstall(String apkName) {
         String[] cmd = {AdtPath.getAdbFile(), "uninstall", apkName};
         setCommand(cmd);
+        exec();
     }
 
     public void reboot(int op) {
@@ -43,6 +45,7 @@ public class Adb extends ExecCommand implements Runnable {
         }
         String[] cmd = {AdtPath.getAdbFile(), "reboot", opstr};
         setCommand(cmd);
+        exec();
     }
 
     @Override
