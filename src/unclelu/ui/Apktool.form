@@ -30,17 +30,24 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtApkFile" max="32767" attributes="0"/>
+                      <Component id="txtApkFile" pref="315" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnOpenFile" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnDeApk" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnComApk" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnImportFramework" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="178" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnImportFramework" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnDeApk" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="checkboxSign" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnComApk" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -59,10 +66,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnDeApk" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnComApk" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnImportFramework" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnComApk" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkboxSign" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -87,11 +98,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x53cd;&#x7f16;&#x8bd1;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeApkActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnComApk">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x56de;&#x7f16;&#x8bd1;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnComApkActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnImportFramework">
       <Properties>
@@ -100,6 +117,12 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImportFrameworkActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkboxSign">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="&#x56de;&#x7f16;&#x8bd1;&#x5e76;&#x7b7e;&#x540d;"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

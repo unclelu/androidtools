@@ -4,7 +4,13 @@
  */
 package unclelu.ui;
 
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
 import java.io.File;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
@@ -20,6 +26,30 @@ public class Apktool extends javax.swing.JDialog {
     public Apktool(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        myInit();
+    }
+
+    private void myInit() {
+        new DropTarget(rootPane, DnDConstants.ACTION_COPY_OR_MOVE, new DropTargetAdapter() {
+            @Override
+            public void drop(DropTargetDropEvent dtde) {
+                if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+                    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+                    try {
+                        List<File> list = (List<File>) dtde.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                        for (File f : list) {
+                            if (f.getName().toLowerCase().endsWith(".apk")) {
+                                txtApkFile.setText(f.getAbsolutePath());
+                            }
+                        }
+                        dtde.dropComplete(true);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    dtde.rejectDrop();
+                }
+            }
+        });
     }
 
     /**
@@ -37,6 +67,7 @@ public class Apktool extends javax.swing.JDialog {
         btnDeApk = new javax.swing.JButton();
         btnComApk = new javax.swing.JButton();
         btnImportFramework = new javax.swing.JButton();
+        checkboxSign = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("反编译");
@@ -51,8 +82,18 @@ public class Apktool extends javax.swing.JDialog {
         });
 
         btnDeApk.setText("反编译");
+        btnDeApk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeApkActionPerformed(evt);
+            }
+        });
 
         btnComApk.setText("回编译");
+        btnComApk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComApkActionPerformed(evt);
+            }
+        });
 
         btnImportFramework.setText("框架导入");
         btnImportFramework.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +101,9 @@ public class Apktool extends javax.swing.JDialog {
                 btnImportFrameworkActionPerformed(evt);
             }
         });
+
+        checkboxSign.setSelected(true);
+        checkboxSign.setText("回编译并签名");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,16 +115,20 @@ public class Apktool extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtApkFile)
+                        .addComponent(txtApkFile, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDeApk)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnComApk)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnImportFramework)
-                        .addGap(0, 178, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnImportFramework)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeApk))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(checkboxSign)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnComApk)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,9 +142,12 @@ public class Apktool extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDeApk)
-                    .addComponent(btnComApk)
                     .addComponent(btnImportFramework))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnComApk)
+                    .addComponent(checkboxSign))
+                .addContainerGap())
         );
 
         pack();
@@ -107,7 +158,7 @@ public class Apktool extends javax.swing.JDialog {
         w.setLocationRelativeTo(this);
         w.setVisible(true);
     }//GEN-LAST:event_btnImportFrameworkActionPerformed
-    
+
     private void btnOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenFileActionPerformed
         JFileChooser jfc = new JFileChooser();
         jfc.setDialogTitle("请选择需要处理的apk");
@@ -120,7 +171,7 @@ public class Apktool extends javax.swing.JDialog {
                     return false;
                 }
             }
-            
+
             @Override
             public String getDescription() {
                 return "apk文件";
@@ -132,6 +183,27 @@ public class Apktool extends javax.swing.JDialog {
         }
         txtApkFile.setText(jfc.getSelectedFile().getAbsolutePath());
     }//GEN-LAST:event_btnOpenFileActionPerformed
+
+    private void btnDeApkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeApkActionPerformed
+        String apk = txtApkFile.getText();
+        if (apk.equals("")) {
+            return;
+        }
+        unclelu.lib.command.Apktool a = new unclelu.lib.command.Apktool(apk);
+        a.deCompile();
+    }//GEN-LAST:event_btnDeApkActionPerformed
+
+    private void btnComApkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComApkActionPerformed
+        String apk = txtApkFile.getText();
+        if (apk.equals("")) {
+            return;
+        }
+        unclelu.lib.command.Apktool a = new unclelu.lib.command.Apktool(apk);
+        if (checkboxSign.isSelected()) {
+            a.setIsSign(true);
+        }
+        a.compile();
+    }//GEN-LAST:event_btnComApkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,6 +251,7 @@ public class Apktool extends javax.swing.JDialog {
     private javax.swing.JButton btnDeApk;
     private javax.swing.JButton btnImportFramework;
     private javax.swing.JButton btnOpenFile;
+    private javax.swing.JCheckBox checkboxSign;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtApkFile;
     // End of variables declaration//GEN-END:variables
