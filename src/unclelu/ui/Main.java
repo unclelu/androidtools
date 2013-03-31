@@ -44,9 +44,9 @@ public class Main extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         lblSystemVersion = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnInstallApk = new javax.swing.JButton();
+        btnFileSign = new javax.swing.JButton();
+        btnApkDecompile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Android Tools");
@@ -75,10 +75,10 @@ public class Main extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtApkName)
+                .addComponent(txtApkName, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSearch))
         );
@@ -94,15 +94,15 @@ public class Main extends javax.swing.JFrame {
 
         jLabel2.setText("系统名称:");
 
-        lblSystemName.setText(null);
+        lblSystemName.setText("null");
 
         jLabel3.setText("系统构架:");
 
-        lblSystemArch.setText(null);
+        lblSystemArch.setText("null");
 
         jLabel4.setText("系统版本:");
 
-        lblSystemVersion.setText(null);
+        lblSystemVersion.setText("null");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -121,7 +121,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSystemVersion)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,19 +139,24 @@ public class Main extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("工具"));
 
-        jButton1.setText("ROM优化");
-
-        jButton2.setText("文件签名");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnInstallApk.setText("安装APK");
+        btnInstallApk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnInstallApkActionPerformed(evt);
             }
         });
 
-        jButton3.setText("反编译");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnFileSign.setText("文件签名");
+        btnFileSign.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnFileSignActionPerformed(evt);
+            }
+        });
+
+        btnApkDecompile.setText("反编译");
+        btnApkDecompile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApkDecompileActionPerformed(evt);
             }
         });
 
@@ -161,11 +166,11 @@ public class Main extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnInstallApk)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnFileSign)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnApkDecompile)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -173,9 +178,9 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnInstallApk)
+                    .addComponent(btnFileSign)
+                    .addComponent(btnApkDecompile))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -183,12 +188,12 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -220,18 +225,24 @@ public class Main extends javax.swing.JFrame {
         lblSystemVersion.setText(SystemInfo.getSystemVersion());
     }//GEN-LAST:event_formWindowOpened
     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnFileSignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileSignActionPerformed
         // TODO add your handling code here:
         Signapk w = new Signapk(this, true);
         w.setLocationRelativeTo(this);
         w.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Apktool w=new Apktool(this, true);
+    }//GEN-LAST:event_btnFileSignActionPerformed
+    
+    private void btnApkDecompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApkDecompileActionPerformed
+        Apktool w = new Apktool(this, true);
         w.setLocationRelativeTo(this);
         w.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnApkDecompileActionPerformed
+    
+    private void btnInstallApkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstallApkActionPerformed
+        InstallAPK w = new InstallAPK(this, true);
+        w.setLocationRelativeTo(this);
+        w.setVisible(true);
+    }//GEN-LAST:event_btnInstallApkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,10 +266,10 @@ public class Main extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApkDecompile;
+    private javax.swing.JButton btnFileSign;
+    private javax.swing.JButton btnInstallApk;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
