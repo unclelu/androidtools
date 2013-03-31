@@ -138,6 +138,7 @@ public class InstallAPK extends javax.swing.JDialog {
 
     private void btnInstallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstallActionPerformed
         if (listApk.getSelectedIndices().length == 0) {
+            JOptionPane.showMessageDialog(rootPane, "no file");
             return;
         }
         for (int i = 0; i < listApk.getSelectedIndices().length; i++) {
